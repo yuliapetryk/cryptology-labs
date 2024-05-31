@@ -8,7 +8,7 @@ import java.security.spec.InvalidKeySpecException;
 public class DSA {
 
     private BigInteger p, q, g, privateKey, publicKey;
-    private int keysize = 1024;
+    private int keySize = 1024;
 
     public DSA() throws NoSuchAlgorithmException, InvalidKeySpecException {
         generateParameters();
@@ -16,22 +16,20 @@ public class DSA {
 
     private void generateParameters() throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
-
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-        keyGen.initialize(keysize, random);
+        keyGen.initialize(keySize, random);
 
-        KeyPair keys = keyGen.generateKeyPair();
-        DSAPrivateKey pr = (DSAPrivateKey)keys.getPrivate();
-        DSAPublicKey pub = (DSAPublicKey)keys.getPublic();
+        KeyPair keyPair = keyGen.generateKeyPair();
 
-        privateKey = pr.getX();
-        publicKey = pub.getY();
+        privateKey = ((DSAPrivateKey) keyPair.getPrivate()).getX();
+        publicKey = ((DSAPublicKey) keyPair.getPublic()).getY();
 
         KeyFactory keyFactory = KeyFactory.getInstance("DSA");
-        DSAPrivateKeySpec prKeySpec = keyFactory.getKeySpec(pr, DSAPrivateKeySpec.class);
-        p = prKeySpec.getP();
-        q = prKeySpec.getQ();
-        g = prKeySpec.getG();
+        DSAPrivateKeySpec privateKeySpec = keyFactory.getKeySpec(keyPair.getPrivate(), DSAPrivateKeySpec.class);
+
+        p = privateKeySpec.getP();
+        q = privateKeySpec.getQ();
+        g = privateKeySpec.getG();
     }
 
     public BigInteger[] sign(BigInteger message) {
