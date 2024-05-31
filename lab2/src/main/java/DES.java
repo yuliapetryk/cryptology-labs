@@ -3,11 +3,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class DES {
-    private static Parametrs param;
+    private static Parameters param;
     static Utils utils;
 
     public DES(){
-        param = new Parametrs();
+        param = new Parameters();
         utils = new Utils();
     }
 

@@ -1,4 +1,4 @@
-public class Parametrs {
+public class Parameters {
 
     final int[] IP = {57, 49, 41, 33, 25, 17, 9, 1,
             59, 51, 43, 35, 27, 19, 11, 3,
